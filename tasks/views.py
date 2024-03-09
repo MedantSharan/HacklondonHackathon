@@ -37,12 +37,29 @@ def remember_items(request, place_id):
     if request.method == 'POST':
         # Here, you can handle the logic when the user clicks "Good To Go".
         # For example, updating the forget_count of the items, etc.
-        pass
+        return redirect('dashboard')
 
     return render(request, 'remember_items.html', {
         'place': place,
         'items': items,
     })
+
+def forgot_items(request, place_id):
+    place = Place.objects.get(pk=place_id)
+    items = Item.objects.filter(place=place)
+    
+    if request.method == 'POST':
+        item_ids = request.POST.getlist('items[]')
+        for item_id in item_ids:
+            item = Item.objects.get(pk=item_id)
+            item.checked = True
+            item.forget_count += 1
+            item.save()
+        
+        return redirect('dashboard')  # Redirect to the dashboard after submission
+    
+    return render(request, 'forgot_items.html', {'place': place, 'items': items})
+
 
 @login_prohibited
 def home(request):

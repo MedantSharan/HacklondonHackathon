@@ -28,5 +28,7 @@ urlpatterns = [
     path('profile/', views.ProfileUpdateView.as_view(), name='profile'),
     path('sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('add_places_items/', views.add_places_items, name='add_places_items'),
-     path('remember-items/<int:place_id>/', views.remember_items, name='remember_items'),
+    path('remember-items/<int:place_id>/', views.remember_items, name='remember_items'),
+    path('forgot_items/<int:place_id>/', views.forgot_items, name='forgot_items'),
+
 ]

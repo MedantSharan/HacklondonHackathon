@@ -11,6 +11,8 @@ from django.urls import reverse
 from tasks.forms import LogInForm, PasswordForm, UserForm, SignUpForm
 from tasks.helpers import login_prohibited
 from .models import Place, Item
+from django.http import JsonResponse
+from .forms import PlaceItemForm
 
 
 @login_required
@@ -32,10 +34,15 @@ def remember_items(request, place_id):
 @login_required
 def dashboard(request):
     """Display the current user's dashboard."""
-
+    
+    # Retrieve the current logged-in user
     current_user = request.user
-    places = Place.objects.filter(user=current_user)
-    return render(request, 'dashboard.html', {'user': current_user})
+    
+    # Retrieve all places
+    places = Place.objects.all()
+    
+    # Pass user and places data to the template
+    return render(request, 'dashboard.html', {'user': current_user, 'places': places})
 
 
 @login_prohibited
@@ -169,3 +176,25 @@ class SignUpView(LoginProhibitedMixin, FormView):
 
     def get_success_url(self):
         return reverse(settings.REDIRECT_URL_WHEN_LOGGED_IN)
+    
+def add_places_items(request):
+    if request.method == 'POST':
+        form = PlaceItemForm(request.POST)
+        if form.is_valid():
+            place_name = form.cleaned_data['place_name']
+            items_data = form.cleaned_data['items'].split(',')
+
+            # Create or get the place
+            place, created = Place.objects.get_or_create(name=place_name, user=request.user)
+
+            # Create items for the place
+            for item_name in items_data:
+                item_name = item_name.strip()
+                if item_name:
+                    item, created = Item.objects.get_or_create(name=item_name, place=place)
+            return JsonResponse({'message': 'Data saved successfully.'})
+        else:
+            return JsonResponse({'error': 'Invalid form data.'}, status=400)
+    else:
+        form = PlaceItemForm()
+    return render(request, 'add_place_items.html', {'form': form})

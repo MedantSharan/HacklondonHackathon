@@ -1,0 +1,23 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Items to Remember for {{ place.name }}</h1>
+            <p><h2>These are the things you forget the most when you go to {{place.name}}, make sure you take them!</h2></p>
+            <form method="post">
+                {% csrf_token %}
+                <ul>
+                    {% for item in items %}
+                    <li>
+                        <label for="item_{{ item.id }}"><h3>{{ item.name }}</h3></label>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <button type="submit">Good To Go</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

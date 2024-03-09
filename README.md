@@ -1,32 +1,53 @@
-# Forgetfulness Solution App
+# Team *enter team name here* Small Group project
 
-The Forgetfulness Solution App is a mobile application designed to help users remember important tasks, events, and information. Whether it's remembering to take medication, attending appointments, or simply keeping track of daily to-do lists, this app aims to provide a convenient solution for forgetful individuals.
+## Team members
+The members of the team are:
+- *enter full name 1 here*
+- *enter full name 2 here*
+- *enter full name 3 here*
+- *enter full name 4 here*
+- *enter full name 5 here*
 
-## Features
+## Project structure
+The project is called `task_manager`.  It currently consists of a single app `tasks`.
 
-- **Task Reminders**: Set reminders for important tasks and receive notifications to ensure you never forget them.
-- **Event Calendar**: Keep track of upcoming events, birthdays, and anniversaries with a built-in calendar.
-- **To-Do Lists**: Create and manage to-do lists to stay organized and prioritize tasks.
-- **Notes and Memos**: Jot down important information, ideas, and thoughts to refer back to later.
-- **Customizable Settings**: Personalize the app according to your preferences, such as notification preferences and theme selection.
+## Deployed version of the application
+The deployed version of the application can be found at [*enter url here*](*enter_url_here*).
 
-## Installation
+## Installation instructions
+To install the software and use it in your local development environment, you must first set up and activate a local development environment.  From the root of the project:
 
-## Usage
+```
+$ virtualenv venv
+$ source venv/bin/activate
+```
 
-1. Launch the Forgetfulness Solution App on your mobile device.
-2. Create an account or log in with your existing credentials.
-3. Explore the various features of the app, such as setting reminders, creating to-do lists, and adding notes.
-4. Customize the app settings according to your preferences.
-5. Stay organized and never forget important tasks and events again!
+Install all required packages:
 
-## Contributing
+```
+$ pip3 install -r requirements.txt
+```
 
-Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request. Make sure to follow the [contribution guidelines](CONTRIBUTING.md).
+Migrate the database:
 
-## License
+```
+$ python3 manage.py migrate
+```
 
-This project is licensed under the [MIT License](LICENSE).
+Seed the development database with:
 
-## Contact
- Medant Sharan
+```
+$ python3 manage.py seed
+```
+
+Run all tests with:
+```
+$ python3 manage.py test
+```
+
+*The above instructions should work in your version of the application.  If there are deviations, declare those here in bold.  Otherwise, remove this line.*
+
+## Sources
+The packages used by this application are specified in `requirements.txt`
+
+*Declare are other sources here, and remove this line*

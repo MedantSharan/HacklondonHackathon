@@ -111,5 +111,11 @@ class SignUpForm(NewPasswordMixin, forms.ModelForm):
     
 
 class PlaceItemForm(forms.Form):
-    place_name = forms.CharField(max_length=100)
-    items = forms.CharField(widget=forms.TextInput(attrs={'class': 'item-input'}))
+    def clean(self):
+        cleaned_data = super().clean()
+        place_names = [key for key in cleaned_data.keys() if key.startswith('place_name_')]
+        for place_name_key in place_names:
+            place_index = place_name_key.split('_')[-1]
+            items_key = f'items_{place_index}[]'
+            if items_key not in cleaned_data:
+                self.add_error(items_key, "Please provide items for this place.")

@@ -166,17 +166,28 @@ def add_places_items(request):
     if request.method == 'POST':
         form = PlaceItemForm(request.POST)
         if form.is_valid():
-            place_name = form.cleaned_data['place_name']
-            items_data = form.cleaned_data['items'].split(',')
+            # Process form data and save to database
+            places_data = {}
+            for key, value in request.POST.items():
+                if key.startswith('place_name_'):
+                    index = key.split('_')[-1]
+                    place_name = value.strip()
+                    items_key = f'items_{index}'
+                    items_data = request.POST.get(items_key, '').split(',')
+                    places_data[place_name] = [item.strip() for item in items_data if item.strip()]
 
-            # Create or get the place
-            place, created = Place.objects.get_or_create(name=place_name, user=request.user)
+            for place_name, items in places_data.items():
+                # Create or get the place
+                place, created = Place.objects.get_or_create(name=place_name, user=request.user)
 
-            # Create items for the place
-            for item_name in items_data:
-                item_name = item_name.strip()
-                if item_name:
+                # Create or update items for the place
+                for item_name in items:
                     item, created = Item.objects.get_or_create(name=item_name, place=place)
+                    if not created:
+                        # Increment forget count if item already exists
+                        item.forget_count += 1
+                        item.save()
+
             return JsonResponse({'message': 'Data saved successfully.'})
         else:
             return JsonResponse({'error': 'Invalid form data.'}, status=400)

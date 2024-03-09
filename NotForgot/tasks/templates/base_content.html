@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
+
 {% block body %}
   {% include 'partials/navbar.html' %}
   {% include 'partials/messages.html' %}
-  {% block content %}
-  {% endblock %}
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
+

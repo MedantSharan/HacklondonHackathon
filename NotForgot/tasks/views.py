@@ -19,10 +19,15 @@ from .forms import PlaceItemForm
 @login_required
 def dashboard(request):
     """Display the current user's dashboard."""
-
+    
+    # Retrieve the current logged-in user
     current_user = request.user
-    places = Place.objects.filter(user=current_user)
-    return render(request, 'dashboard.html', {'user': current_user})
+    
+    # Retrieve all places
+    places = Place.objects.all()
+    
+    # Pass user and places data to the template
+    return render(request, 'dashboard.html', {'user': current_user, 'places': places})
 
 
 @login_prohibited

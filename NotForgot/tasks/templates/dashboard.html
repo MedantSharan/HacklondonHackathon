@@ -1,10 +1,30 @@
 {% extends 'base_content.html' %}
+
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>Welcome to your dashboard {{ user.username }}</h1>
+    <div class="row">
+        <div class="col-12">
+            <h1>Welcome to your dashboard {{ user.username }}</h1>
+
+            <form action="{% url 'dashboard' %}" method="get">
+                <label for="place-selector">Where are you going?</label>
+                <select id="place-selector" name="place">
+                    {% for place in places %}
+                        <option value="{{ place.id }}">{{ place.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Show Items</button>
+            </form>
+
+            {% if selected_place %}
+                <h2>Items to remember for {{ selected_place.name }}:</h2>
+                <ul>
+                    {% for item in selected_place.items.all %}
+                        <li>{{ item.name }} (Forgotten {{ item.forget_count }} times)</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}

@@ -10,6 +10,8 @@ from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse
 from tasks.forms import LogInForm, PasswordForm, UserForm, SignUpForm
 from tasks.helpers import login_prohibited
+from .models import Place
+
 
 
 @login_required
@@ -17,6 +19,7 @@ def dashboard(request):
     """Display the current user's dashboard."""
 
     current_user = request.user
+    places = Place.objects.filter(user=current_user)
     return render(request, 'dashboard.html', {'user': current_user})
 
 

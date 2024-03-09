@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container vh-100">
+  <div class="row h-100">
+    <div class="col-12 my-auto">
+      <div class="card cover-card offset-sm-2 offset-md-4 offset-lg-7">
+        <p class="cover-text">Please provide information about the places you visit and the items you usually carry.</p>
+        <form id="add_places_form" method="post">
+          {% csrf_token %}
+          <div id="places_fields">
+            <div class="place-group" id="place_group_0">
+              <div class="form-group">
+                <label for="place_name_0">Place Name:</label>
+                <input type="text" name="place_name_0" id="place_name_0" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="items_0">Items:</label>
+                <input type="text" name="items_0[]" id="items_0" class="form-control item-input" required>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-secondary" onclick="addPlaceField()">+ Add Place</button>
+          <br><br>
+          <button type="submit" class="btn btn-lg btn-secondary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var placeIndex = 1;
+
+  function addPlaceField() {
+    var placesFields = document.getElementById('places_fields');
+  
+    var newPlaceGroup = document.createElement('div');
+    newPlaceGroup.className = 'place-group';
+    newPlaceGroup.id = 'place_group_' + placeIndex;
+    newPlaceGroup.innerHTML = `
+      <div class="form-group">
+        <label for="place_name_${placeIndex}">Place Name:</label>
+        <input type="text" name="place_name_${placeIndex}" id="place_name_${placeIndex}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="items_${placeIndex}">Items:</label>
+        <input type="text" name="items_${placeIndex}[]" id="items_${placeIndex}" class="form-control item-input" required>
+      </div>
+    `;
+    placesFields.appendChild(newPlaceGroup);
+    placeIndex++;
+  }
+</script>
+{% endblock %}

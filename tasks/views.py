@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse
@@ -29,6 +29,20 @@ def dashboard(request):
     # Pass user and places data to the template
     return render(request, 'dashboard.html', {'user': current_user, 'places': places})
 
+def remember_items(request, place_id):
+    user = request.user
+    place = get_object_or_404(Place, id=place_id, user=user)
+    items = Item.objects.filter(place=place)
+
+    if request.method == 'POST':
+        # Here, you can handle the logic when the user clicks "Good To Go".
+        # For example, updating the forget_count of the items, etc.
+        pass
+
+    return render(request, 'remember_items.html', {
+        'place': place,
+        'items': items,
+    })
 
 @login_prohibited
 def home(request):

@@ -39,8 +39,8 @@
     <!-- Displaying Places as buttons -->
     
     {% for place in places %}
-        <button class="place-button">{{ place.name }}</button>
-    {% endfor %}
+    <a href="{% url 'remember_items' place.id %}" class="place-button"> {{ place.name }}</a>
+{% endfor %}
 
     <!-- Plus button to add new place -->
     <a href="{% url 'add_places_items' %}" class="add-place-button">+</a>

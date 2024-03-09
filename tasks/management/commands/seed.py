@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
 from tasks.models import User
-
+from tasks.models import User, Place, Item
 import pytz
 from faker import Faker
 from random import randint, random
@@ -26,6 +26,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.create_users()
         self.users = User.objects.all()
+        self.create_specific_places_and_items()
 
     def create_users(self):
         self.generate_user_fixtures()
@@ -64,6 +65,36 @@ class Command(BaseCommand):
             first_name=data['first_name'],
             last_name=data['last_name'],
         )
+
+    def create_specific_places_and_items(self):
+        # Retrieve or create @johndoe user
+        johndoe_user, _ = User.objects.get_or_create(
+            username='@johndoe', 
+            defaults={
+                'email': 'john.doe@example.org',
+                'first_name': 'John',
+                'last_name': 'Doe',
+                'password': 'Password123'
+            }
+        )
+
+        # Manually create places and items for @johndoe
+        self.create_place_with_items(johndoe_user, 'Home', [
+            ('Keys', 3),
+            ('Wallet', 2),
+            ('Sunglasses', 1)
+        ])
+
+        self.create_place_with_items(johndoe_user, 'Office', [
+            ('Laptop', 4),
+            ('Charger', 5),
+            ('Notebook', 2)
+        ])
+
+    def create_place_with_items(self, user, place_name, items):
+        place, _ = Place.objects.get_or_create(name=place_name, user=user)
+        for item_name, forget_count in items:
+            Item.objects.get_or_create(name=item_name, place=place, defaults={'forget_count': forget_count})
 
 def create_username(first_name, last_name):
     return '@' + first_name.lower() + last_name.lower()

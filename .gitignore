@@ -10,7 +10,7 @@ node_modules/
 *.jks
 *.p12
 *.key
-
+*/venv
 # Ignore development environment files
 .env
 .env.local

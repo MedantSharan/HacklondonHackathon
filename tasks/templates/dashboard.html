@@ -39,7 +39,7 @@
     <!-- Displaying Places as buttons -->
     
     {% for place in places %}
-        <a href="{% url 'place_detail' place.id %}" class="place-button">{{ place.name }}</a>
+        <button class="place-button">{{ place.name }}</button>
     {% endfor %}
 
     <!-- Plus button to add new place -->

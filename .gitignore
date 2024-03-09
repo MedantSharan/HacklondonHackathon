@@ -11,6 +11,7 @@ node_modules/
 *.p12
 *.key
 */venv
+*__pycache__*
 # Ignore development environment files
 .env
 .env.local

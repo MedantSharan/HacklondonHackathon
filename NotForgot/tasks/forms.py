@@ -108,3 +108,8 @@ class SignUpForm(NewPasswordMixin, forms.ModelForm):
             password=self.cleaned_data.get('new_password'),
         )
         return user
+    
+
+class PlaceItemForm(forms.Form):
+    place_name = forms.CharField(max_length=100)
+    items = forms.CharField(widget=forms.TextInput(attrs={'class': 'item-input'}))

@@ -12,10 +12,6 @@ The Forgetfulness Solution App is a mobile application designed to help users re
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/forgetfulness-solution-app.git`
-2. Install the required dependencies: `npm install`
-3. Start the app: `npm start`
-
 ## Usage
 
 1. Launch the Forgetfulness Solution App on your mobile device.
@@ -33,5 +29,4 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
-
-For any inquiries or support, please contact us at [support@forgetfulnesssolutionapp.com](mailto:support@forgetfulnesssolutionapp.com).
+ Medant Sharan

@@ -38,7 +38,7 @@ class User(AbstractUser):
 
 class Place(models.Model):
     """Model to represent a place."""
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique = True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -29,6 +29,15 @@ def dashboard(request):
     # Pass user and places data to the template
     return render(request, 'dashboard.html', {'user': current_user, 'places': places})
 
+def increment_streak(request):
+    if request.method == 'POST':
+        current_user = request.user
+        current_user.streaks += 1
+        current_user.save()
+
+    return redirect('dashboard')
+
+
 def remember_items(request, place_id):
     user = request.user
     place = get_object_or_404(Place, id=place_id, user=user)
@@ -48,7 +57,11 @@ def forgot_items(request, place_id):
     place = Place.objects.get(pk=place_id)
     items = Item.objects.filter(place=place)
     
+    
     if request.method == 'POST':
+        current_user = request.user
+        current_user.streaks = 0
+        current_user.save()
         item_ids = request.POST.getlist('items[]')
         for item_id in item_ids:
             item = Item.objects.get(pk=item_id)

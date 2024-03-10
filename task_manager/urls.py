@@ -31,5 +31,5 @@ urlpatterns = [
     path('remember-items/<int:place_id>/', views.remember_items, name='remember_items'),
     path('forgot_items/<int:place_id>/', views.forgot_items, name='forgot_items'),
     path('forgot_items/<int:place_id>/forget-something-else/', views.forget_something_else, name='forget_something_else'),
-
+    path('increment-streak/', views.increment_streak, name='increment_streak'),
 ]

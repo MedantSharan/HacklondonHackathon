@@ -7,6 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jsDelivr  -->
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/index.umd.js"></script>
+
+<!-- UNPKG -->
+<script src="https://unpkg.com/fireworks-js@2.x/dist/index.umd.js"></script>
     <title>Dashboard</title>
     <style>
         body {
@@ -43,6 +48,23 @@
             background-color: #47697b; /* Darker blue on hover */
         }
 
+
+        .streaks-button {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            padding: 10px 20px; /* Top and bottom padding: 10px, Left and right padding: 20px */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Cursor changes to a hand icon when hovered over the button */
+            font-size: 16px; /* Font size */
+            margin-top: 10px; /* Margin at the top */
+        }
+
+        .streaks-button:hover {
+            background-color: #45a049; /* Darker shade of green when hovered over */
+        }
+
+
         .forgot-link {
             padding: 10px 15px; /* Adjusted padding for button size */
             border: 1px solid #5c92a3; /* Complementary blue border */
@@ -74,6 +96,12 @@
     cursor: pointer;
     transition: background-color 0.3s ease; /* Smooth transition on hover */
 }
+.streaks-display {
+    text-align: center;
+    margin-top: 20px;
+    color: red;
+    font-weight: bold;
+}
 
         .add-place-button:hover {
             background-color: #a5c9a5; /* Darker green on hover */
@@ -93,6 +121,32 @@
 
     <!-- Plus button to add new place -->
     <a href="{% url 'add_places_items' %}" class="add-place-button">+</a>
+    <div>
+        <p class="streaks-display">Your current streak is {{ user.streaks }}! Press the button below if you did not forget anything today!</p>
+    </div>
+    <form action="{% url 'increment_streak' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="streaks-button" id="streaksButton">Streak</button>
+
+    <div class="fireworks" style="position: fixed; top: 0; left: 0; width: 50%; height: 50%;"></div>
+    <script>
+        document.getElementById('streaksButton').addEventListener('click', function() {
+            const container = document.querySelector('.fireworks');
+            container.style.display = 'block'; // Show the container
+            const fireworks = new Fireworks.default(container);
+    
+            // Start the fireworks
+            fireworks.start();
+    
+            // Stop the fireworks after a short duration, e.g., 3 seconds
+            setTimeout(() => {
+                fireworks.stop();
+                container.style.display = 'none'; // Hide the container after stopping
+            }, 3000);
+        });
+    </script>
+</form>
+
 </body>
 </html>
 

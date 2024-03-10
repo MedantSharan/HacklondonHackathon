@@ -1,66 +1,64 @@
-{% extends 'base.html' %}
-{% block body %}
+{% extends 'base_content.html' %}
 
-{% comment %} {% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+      background-color: #f5f5dc; /* Beige background */
+      font-family: Arial, sans-serif;
+      color: #333;
+      padding: 20px;
+      height: 100vh; /* Full height */
+  }
 
-{% block body %}
-<div class="container vh-100">
-  <div class="row h-100">
+  .cover-card {
+      background-color: #fff;
+      margin: auto; /* Center the card */
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .cover-heading {
+      text-align: center;
+      margin-bottom: 20px;
+  }
+
+  .centered-button {
+      background-color: #5c92a3;
+      color: white;
+      margin: 20px auto;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      transition: background-color 0.3s ease;
+  }
+
+  .centered-button:hover {
+      background-color: #47697b;
+  }
+
+  .form-group {
+      margin-bottom: 15px;
+  }
+</style>
+
+
+
+
+<div class="row h-100">
     <div class="col-12 my-auto">
-      <div class="card cover-card offset-sm-2 offset-md-4 offset-lg-7">
-        <h1 class="cover-heading">Task Manager</h1>
-        <p class="cover-text">Please provide information about the places you visit and the items you usually carry.</p>
-        <form method="post">
-          {% csrf_token %}
-          <!-- Place form -->
-          <div class="form-group">
-            <label for="place_name">Place Name:</label>
-            <input type="text" name="place_name" id="place_name" class="form-control" required>
-          </div>
-          <!-- Items form -->
-          <div id="items_fields">
-            <div class="form-group">
-              <label for="item_name">Item Name:</label>
-              <input type="text" name="item_name" class="form-control" required>
-            </div>
-          </div>
-          <button type="button" class="btn btn-sm btn-secondary" onclick="addItemField()">+ Add Item</button>
-          <br><br>
-          <button type="submit" class="btn btn-lg btn-secondary">Submit</button>
-        </form>
-      </div>
+        <div class="card cover-card">
+            <h1 class="cover-heading">Provide information about the places you visit and the items you usually carry</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="centered-button btn-lg">Submit</button>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
-<script>
-  function addItemField() {
-    // Create a new item field
-    var newItemField = document.createElement('div');
-    newItemField.innerHTML = `
-      <div class="form-group">
-        <label for="item_name">Item Name:</label>
-        <input type="text" name="item_name" class="form-control" required>
-      </div>
-    `;
-    // Append the new item field to the items_fields container
-    document.getElementById('items_fields').appendChild(newItemField);
-  }
-</script>
-{% endblock %} {% endcomment %}
 
-  <div class="container vh-100">
-    <div class="row h-100">
-      <div class="col-12 my-auto">
-        <div class="card cover-card offset-sm-2 offset-md-4 offset-lg-7">
-          <h1 class="cover-heading">Provide information about the places you visit and the items you usually carry</h1>
-          <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-lg btn-secondary">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 {% endblock %}

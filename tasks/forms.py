@@ -112,21 +112,29 @@ class SignUpForm(NewPasswordMixin, forms.ModelForm):
     
 
 class PlaceItemForm(forms.Form):
-    place_name = forms.CharField(max_length=100, label="Place Name")
-    item_names = forms.CharField(max_length=255, label="Item Names", help_text="Enter comma-separated item names")
+    place_name = forms.CharField(max_length=100, label="Place Name", widget=forms.TextInput(attrs={'placeholder': 'Place Name', 'style': 'width: 100%;', 'rows': 1}))
+    item_names = forms.CharField(
+        max_length=255,
+        label="Item Names",
+        widget=forms.Textarea(attrs={
+            'placeholder': 'comma-separated item names',
+            'style': 'width: 100%;',  # Set the width to 100%
+            'rows': 1 # You can adjust the number of rows as needed
+        })
+    )
 
     def save_data(self, user):
         place_name = self.cleaned_data['place_name']
         item_names = self.cleaned_data['item_names'].split(',')
 
         # Create a new place
-        if Place.objects.filter(name = place_name).exists():
-            place = Place.objects.get(name = place_name)
+        if Place.objects.filter(name=place_name).exists():
+            place = Place.objects.get(name=place_name)
         else:
             place = Place.objects.create(name=place_name, user=user)
 
         # Create items associated with the place
         for item_name in item_names:
             item_name = item_name.strip()  # Remove leading/trailing whitespaces
-            if not Item.objects.filter(place=place, name=item_name.strip()).exists():
+            if not Item.objects.filter(place=place, name=item_name).exists():
                 Item.objects.create(name=item_name, place=place, forget_count=0)

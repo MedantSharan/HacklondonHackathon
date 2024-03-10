@@ -1,6 +1,85 @@
 {% extends 'base_content.html' %}
 
 {% block content %}
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5dc; /* Beige background */
+    color: #333; /* Dark font color */
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px; /* Increased margin for better spacing */
+}
+
+h2 {
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 18px; /* Font size */
+    margin-bottom: 5px; /* Adjusted margin for better spacing */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue button color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif; /* Font family */
+    font-size: 16px; /* Font size */
+}
+
+.submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.blue-button {
+    background-color: #5c92a3; /* Blue color */
+    align: center;
+    color: white;
+    margin-top: 20px;
+    margin-left: auto;  /* Aligns button to the center */
+    margin-right: auto; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.blue-button:hover {
+    background-color: #47697b; /* Darker blue on hover */
+}
+
+.blue-container {
+    background-color:  #5c92a3; /* Light blue background for the container */
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+</style>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -8,18 +87,21 @@
             <h2>These are the things you forget the most when you go to {{place.name}}, make sure you take them!</h2>
             <form id="itemsForm" method="post">
                 {% csrf_token %}
-                <ul>
-                    {% for item in items %}
-                    <li>
-                        <label for="item_{{ item.id }}"><h3>{{ item.name }}</h3></label>
-                    </li>
-                    {% endfor %}
-                </ul>
-                <button type="button" id="goodToGoButton">Good To Go</button>
+                <div class="blue-container">
+                    <ul>
+                        {% for item in items %}
+                            <li>
+                                <label for="item_{{ item.id }}"><h2>{{ item.name }}</h2></label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <button type="button" id="goodToGoButton" class="blue-button">Good To Go</button>
             </form>
         </div>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <script>

@@ -1,3 +1,7 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,23 +11,33 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333; /* Dark font color */
             padding: 20px;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
+        h1, h2 {
             text-align: center;
             margin-bottom: 20px;
         }
-        h2 {
-            margin-top: 20px;
+        .checklist-item, .submit-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #5c92a3; /* Matching button color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .checklist-item:hover, .submit-button:hover {
+            background-color: #47697b; /* Matching button hover color */
+        }
+        .checklist-item {
+            align-items: center;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
         }
         ul {
             list-style-type: none;
@@ -31,23 +45,6 @@
         }
         li {
             margin-bottom: 10px;
-        }
-        .checklist-item {
-            display: flex;
-            align-items: center;
-        }
-        .checklist-item input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        .submit-button {
-            display: block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
         /* Modal styles */
         .modal {
@@ -70,6 +67,9 @@
             width: 80%;
         }
     </style>
+
+     
+    
 </head>
 <body>
     <div class="container">
@@ -93,4 +93,4 @@
     </div>
 </body>
 </html>
-
+{% endblock %}

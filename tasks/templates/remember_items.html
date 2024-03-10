@@ -18,10 +18,12 @@ h1 {
 h2 {
     font-family: Arial, sans-serif;
     margin-top: 20px;
+    font-size: 20px; 
+
 }
 
 h3 {
-    font-size: 18px; /* Font size */
+    font-size: 16px; /* Font size */
     margin-bottom: 5px; /* Adjusted margin for better spacing */
 }
 
@@ -84,7 +86,7 @@ li {
     <div class="row">
         <div class="col-12">
             <h1>Items to Remember for {{ place.name }}</h1>
-            <h2>These are the things you forget the most when you go to {{place.name}}, make sure you take them!</h2>
+            <h3>These are the things you forget the most when you go to {{place.name}}, make sure you take them!</h3>
             <form id="itemsForm" method="post">
                 {% csrf_token %}
                 <div class="blue-container">

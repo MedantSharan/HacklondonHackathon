@@ -1,7 +1,72 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Include necessary meta tags and CSS styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forget Something Else?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333; /* Dark font color */
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .checklist-item, .submit-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #5c92a3; /* Matching button color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .checklist-item:hover, .submit-button:hover {
+            background-color: #47697b; /* Matching button hover color */
+        }
+        .checklist-item {
+            align-items: center;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -9,9 +74,11 @@
         <h2>{{ place.name }}</h2>
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="item_name" placeholder="Enter item name">
-            <button type="submit">Add Item</button>
+            <input type="text" name="item_name" placeholder="Enter item name" class="checklist-item">
+            <button type="submit" class="submit-button">Add Item</button>
         </form>
     </div>
 </body>
 </html>
+
+{% endblock %}

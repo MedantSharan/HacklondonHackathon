@@ -128,4 +128,5 @@ class PlaceItemForm(forms.Form):
         # Create items associated with the place
         for item_name in item_names:
             item_name = item_name.strip()  # Remove leading/trailing whitespaces
-            Item.objects.create(name=item_name, place=place, forget_count=0)
+            if not Item.objects.filter(place=place, name=item_name.strip()).exists():
+                Item.objects.create(name=item_name, place=place, forget_count=0)

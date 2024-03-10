@@ -50,5 +50,8 @@ class Item(models.Model):
     place = models.ForeignKey(Place, related_name='items', on_delete=models.CASCADE)
     forget_count = models.PositiveIntegerField(default=0)
 
+    class Meta:
+        unique_together = ('name', 'place')
+    
     def __str__(self):
         return self.name

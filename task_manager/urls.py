@@ -30,5 +30,6 @@ urlpatterns = [
     path('add_places_items/', views.add_places_items, name='add_places_items'),
     path('remember-items/<int:place_id>/', views.remember_items, name='remember_items'),
     path('forgot_items/<int:place_id>/', views.forgot_items, name='forgot_items'),
+    path('forgot_items/<int:place_id>/forget-something-else/', views.forget_something_else, name='forget_something_else'),
 
 ]

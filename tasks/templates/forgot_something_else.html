@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include necessary meta tags and CSS styles -->
+</head>
+<body>
+    <div class="container">
+        <h1>Forget Something Else?</h1>
+        <h2>{{ place.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="item_name" placeholder="Enter item name">
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+</body>
+</html>

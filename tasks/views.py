@@ -60,6 +60,14 @@ def forgot_items(request, place_id):
     
     return render(request, 'forgot_items.html', {'place': place, 'items': items})
 
+def forget_something_else(request, place_id):
+    place = get_object_or_404(Place, id=place_id)
+    if request.method == 'POST':
+        item_name = request.POST.get('item_name')
+        Item.objects.create(name=item_name, place=place)
+        return redirect('forgot_items', place_id=place.id)
+    return render(request, 'forgot_something_else.html', {'place': place})
+
 
 @login_prohibited
 def home(request):
@@ -194,34 +202,6 @@ class SignUpView(LoginProhibitedMixin, FormView):
         return reverse(settings.REDIRECT_URL_WHEN_LOGGED_IN)
     
 def add_places_items(request):
-    # if request.method == 'POST':
-    #     form = PlaceItemForm(request.POST)
-    #     if form.is_valid():
-    #         # Process form data and save to database
-    #         places_data = {}
-    #         for key, value in request.POST.items():
-    #             if key.startswith('place_name_'):
-    #                 index = key.split('_')[-1]
-    #                 place_name = value.strip()
-    #                 items_key = f'items_{index}'
-    #                 items_data = request.POST.get(items_key, '').split(',')
-    #                 places_data[place_name] = [item.strip() for item in items_data if item.strip()]
-
-    #         for place_name, items in places_data.items():
-    #             # Create or get the place
-    #             place, created = Place.objects.get_or_create(name=place_name, user=request.user)
-
-    #             # Create or update items for the place
-    #             for item_name in items:
-    #                 item, created = Item.objects.get_or_create(name=item_name, place=place)
-    #                 if not created:
-    #                     # Increment forget count if item already exists
-    #                     item.forget_count += 1
-    #                     item.save()
-
-    #         return JsonResponse({'message': 'Data saved successfully.'})
-    #     else:
-    #         return JsonResponse({'error': 'Invalid form data.'}, status=400)
     if request.method == 'POST':
         form = PlaceItemForm(request.POST)
 

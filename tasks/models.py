@@ -38,7 +38,7 @@ class User(AbstractUser):
 
 class Place(models.Model):
     """Model to represent a place."""
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique = True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -50,5 +50,8 @@ class Item(models.Model):
     place = models.ForeignKey(Place, related_name='items', on_delete=models.CASCADE)
     forget_count = models.PositiveIntegerField(default=0)
 
+    class Meta:
+        unique_together = ('name', 'place')
+    
     def __str__(self):
         return self.name

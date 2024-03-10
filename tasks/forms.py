@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.core.validators import RegexValidator
 from .models import User
+from .models import Place, Item
 
 class LogInForm(forms.Form):
     """Form enabling registered users to log in."""
@@ -111,11 +112,21 @@ class SignUpForm(NewPasswordMixin, forms.ModelForm):
     
 
 class PlaceItemForm(forms.Form):
-    def clean(self):
-        cleaned_data = super().clean()
-        place_names = [key for key in cleaned_data.keys() if key.startswith('place_name_')]
-        for place_name_key in place_names:
-            place_index = place_name_key.split('_')[-1]
-            items_key = f'items_{place_index}[]'
-            if items_key not in cleaned_data:
-                self.add_error(items_key, "Please provide items for this place.")
+    place_name = forms.CharField(max_length=100, label="Place Name")
+    item_names = forms.CharField(max_length=255, label="Item Names", help_text="Enter comma-separated item names")
+
+    def save_data(self, user):
+        place_name = self.cleaned_data['place_name']
+        item_names = self.cleaned_data['item_names'].split(',')
+
+        # Create a new place
+        if Place.objects.filter(name = place_name).exists():
+            place = Place.objects.get(name = place_name)
+        else:
+            place = Place.objects.create(name=place_name, user=user)
+
+        # Create items associated with the place
+        for item_name in item_names:
+            item_name = item_name.strip()  # Remove leading/trailing whitespaces
+            if not Item.objects.filter(place=place, name=item_name.strip()).exists():
+                Item.objects.create(name=item_name, place=place, forget_count=0)

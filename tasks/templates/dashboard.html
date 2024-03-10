@@ -31,19 +31,64 @@
             background-color: #f9f9f9;
             cursor: pointer;
         }
+        .forgot-button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .place-button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.place-button {
+    flex: 1; /* Make the button span the entire width */
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    margin-right: 10px; /* Adjust spacing between buttons */
+}
+
+.forgot-link {
+    padding: 3px 8px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    text-decoration: none;
+    color: #333;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    margin-left: 2px; /* Adjust spacing between buttons */
+}
     </style>
 </head>
 <body>
     <h1>Where are you going, {{ user.username }}?</h1>
     
     <!-- Displaying Places as buttons -->
-    
     {% for place in places %}
-    <a href="{% url 'remember_items' place.id %}" class="place-button"> {{ place.name }}</a>
+    <div class="place-button-container">
+        <a href="{% url 'remember_items' place.id %}" class="place-button">{{ place.name }}</a>
+        <a href="{% url 'forgot_items' place.id %}" class="forgot-link">I forgot something</a>
+    </div>
 {% endfor %}
+
 
     <!-- Plus button to add new place -->
     <a href="{% url 'add_places_items' %}" class="add-place-button">+</a>
+
+    
 </body>
 </html>
 

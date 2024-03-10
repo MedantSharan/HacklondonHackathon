@@ -9,68 +9,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <style>
-        .place-button {
-            display: block;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #333;
-            background-color: #f9f9f9;
-            cursor: pointer;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333; /* Dark font color */
+            padding: 20px;
         }
-        .add-place-button {
-            display: block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #333;
-            background-color: #f9f9f9;
-            cursor: pointer;
-        }
-        .forgot-button {
-            display: block;
-            margin-top: 20px;
-            padding: 10px 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #333;
-            background-color: #f9f9f9;
-            cursor: pointer;
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px; /* Increased margin for better spacing */
         }
 
         .place-button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px; /* Adjusted margin for better spacing */
+        }
 
-.place-button {
-    flex: 1; /* Make the button span the entire width */
-    padding: 10px 20px;
-    border: 1px solid #ccc;
+        .place-button {
+            flex: 1;
+            padding: 15px 20px; /* Increased padding for better button size */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff; /* White text color */
+            background-color: #5c92a3; /* Complementary blue button color */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+        }
+
+        .place-button:hover {
+            background-color: #47697b; /* Darker blue on hover */
+        }
+
+        .forgot-link {
+            padding: 10px 15px; /* Adjusted padding for button size */
+            border: 1px solid #5c92a3; /* Complementary blue border */
+            border-radius: 5px;
+            text-decoration: none;
+            color: #5c92a3; /* Complementary blue text color */
+            background-color: #fff; /* White background */
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+        }
+
+        .forgot-link:hover {
+            background-color: #5c92a3; /* Complementary blue background on hover */
+            color: #fff; /* White text color on hover */
+        }
+
+        .add-place-button {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 50px; /* Set explicit width */
+    margin: 0 auto; /* Center align the button */
+    padding: 10px; /* Adjusted padding for smaller button size */
+    border: none;
     border-radius: 5px;
     text-decoration: none;
-    color: #333;
-    background-color: #f9f9f9;
+    color: #fff; /* White text color */
+    background-color: #b8d8b8; /* Pastel green button color */
     cursor: pointer;
-    margin-right: 10px; /* Adjust spacing between buttons */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
 }
 
-.forgot-link {
-    padding: 3px 8px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    text-decoration: none;
-    color: #333;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    margin-left: 2px; /* Adjust spacing between buttons */
-}
+        .add-place-button:hover {
+            background-color: #a5c9a5; /* Darker green on hover */
+        }
     </style>
 </head>
 <body>
@@ -78,18 +85,18 @@
     
     <!-- Displaying Places as buttons -->
     {% for place in places %}
-    <div class="place-button-container">
-        <a href="{% url 'remember_items' place.id %}" class="place-button">{{ place.name }}</a>
-        <a href="{% url 'forgot_items' place.id %}" class="forgot-link">I forgot something</a>
-    </div>
+<div class="place-button-container">
+    <a href="{% url 'remember_items' place.id %}" class="place-button">{{ place.name }}</a>
+    <a href="{% url 'forgot_items' place.id %}" class="forgot-link">I forgot something</a>
+</div>
 {% endfor %}
-
 
     <!-- Plus button to add new place -->
     <a href="{% url 'add_places_items' %}" class="add-place-button">+</a>
-
-    
 </body>
 </html>
 
+
+
 {% endblock %}
+

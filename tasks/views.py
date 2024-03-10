@@ -32,12 +32,12 @@ def dashboard(request):
 def remember_items(request, place_id):
     user = request.user
     place = get_object_or_404(Place, id=place_id, user=user)
-    items = Item.objects.filter(place=place)
+    items = Item.objects.filter(place=place).order_by('-forget_count')
 
     if request.method == 'POST':
         # Here, you can handle the logic when the user clicks "Good To Go".
         # For example, updating the forget_count of the items, etc.
-        pass
+        return redirect('dashboard')
 
     return render(request, 'remember_items.html', {
         'place': place,

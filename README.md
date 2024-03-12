@@ -2,8 +2,8 @@
 
 ## Team members
 The members of the team are:
-Medant Sharan
-Shreeya Chandel
+Medant Sharan,
+Shreeya Chandel,
 Akshat Dubey
 
 ## Project structure

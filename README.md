@@ -1,4 +1,4 @@
-# Team OneTwoThree Small Group project
+# Team OneTwoThree HackLondon Hackathon Submission
 
 ## Team members
 The members of the team are:

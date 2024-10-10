@@ -7,7 +7,7 @@ Shreeya Chandel,
 Akshat Dubey
 
 ## Project structure
-The project is called `task_manager`.  It currently consists of a single app `tasks`.
+The project is called `NotForgot`.  It currently consists of a single app `tasks`.
 
 ## Installation instructions
 To install the software and use it in your local development environment, you must first set up and activate a local development environment.  From the root of the project:
@@ -44,5 +44,3 @@ $ python3 manage.py test
 
 ## Sources
 The packages used by this application are specified in `requirements.txt`
-
-*Declare are other sources here, and remove this line*
